@@ -43,7 +43,7 @@ def main():
     while True:
         # Очистка экрана консоли (Mac/Linux)
         os.system('clear') 
-        print(f"\n🔒 Генератор паролей (v2026) | Таймер: {CLEANUP_DELAY}с 🔒")
+        print(f"\n🔒 Генератор паролей | Таймер: {CLEANUP_DELAY}с 🔒")
         passwords = [generate_custom_password() for _ in range(COUNT)]
 
         for i, pwd in enumerate(passwords, 1):
