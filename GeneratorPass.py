@@ -83,7 +83,7 @@ class SecureGenerator:
         while True:
             self.refresh()  # Генерируем пароли
             os.system('clear' if os.name == 'posix' else 'cls')  # Чистим экран терминала
-            print(f"{Colors.BOLD}{Colors.CYAN}🔒 Secure Gen | Jan 2026 | MAC-SAFE 🔒{Colors.END}")
+            print(f"{Colors.BOLD}{Colors.CYAN}🔒 Secure Gen | Final 🔒{Colors.END}")
 
             for i, ba in enumerate(self.passwords_ba, 1):
                 # Декодируем байты в строку только для вывода на экран
