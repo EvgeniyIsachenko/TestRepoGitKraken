@@ -1,0 +1,53 @@
+import secrets
+import string
+import pyperclip
+
+def generate_custom_password(length=22):
+    # Настройки наборов символов
+    forbidden = set('#"\'\\/|}[{~`')
+    special_chars = "".join(c for c in string.punctuation if c not in forbidden)
+    letters = string.ascii_letters
+    digits = string.digits.replace('0', '') # Исключаем 0 по вашему условию
+    
+    # 1. Генерируем обязательные элементы (минимум 2 не-символа для краев)
+    ends = [secrets.choice(letters + digits) for _ in range(2)]
+    
+    # 2. Генерируем остальное (20 символов)
+    # Распределяем остаток: 4 upper, 4 lower, 7 digits, 5 symbols (пример)
+    body = (
+        [secrets.choice(string.ascii_uppercase) for _ in range(4)] +
+        [secrets.choice(string.ascii_lowercase) for _ in range(4)] +
+        [secrets.choice(digits) for _ in range(7)] +
+        [secrets.choice(special_chars) for _ in range(5)]
+    )
+    
+    # 3. Перемешиваем только тело
+    secrets.SystemRandom().shuffle(body)
+    
+    # 4. Сборка: гарантированный не-символ + тело + гарантированный не-символ
+    return f"{ends[0]}{''.join(body)}{ends[1]}"
+
+def main():
+    print("\n🔒 Генератор криптостойких паролей 🔒")
+    COUNT = 10
+    passwords = [generate_custom_password() for _ in range(COUNT)]
+
+    for i, pwd in enumerate(passwords, 1):
+        print(f"{i:2d}. {pwd}")
+
+    while True:
+        choice = input(f"\nВыберите номер (1-{COUNT}) или Enter для выхода: ").strip()
+        if not choice: break
+
+        if choice.isdigit():
+            idx = int(choice)
+            if 1 <= idx <= COUNT:
+                selected = passwords[idx - 1]
+                pyperclip.copy(selected)
+                print(f"✓ Скопировано в буфер!")
+                continue
+        
+        print(f"Ошибка! Введите число от 1 до {COUNT}")
+
+if __name__ == "__main__":
+    main()
