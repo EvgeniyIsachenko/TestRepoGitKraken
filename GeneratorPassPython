@@ -61,9 +61,9 @@ def main():
                 pyperclip.copy(selected)
                 print(f"✓ Скопировано: {selected}")
             else:
-                print("Ошибка! Число должно быть от 1 до 5")
+                print("Ошибка! Число должно быть от 1 до 10")
         except ValueError:
-            print("Ошибка! Введите число от 1 до 5")
+            print("Ошибка! Введите число от 1 до 10")
 
 
 if __name__ == "__main__":
